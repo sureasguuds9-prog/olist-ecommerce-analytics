@@ -1,0 +1,10 @@
+.DS_Store
+.ipynb_checkpoints/
+__pycache__/
+.venv/
+venv/
+
+# Raw Olist data is not committed because of file size.
+data/raw/*.csv
+!data/raw/README.md
+
