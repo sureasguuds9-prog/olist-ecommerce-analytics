@@ -68,8 +68,29 @@
 - Запустить CRM-кампании для стимулирования второй покупки в течение 30–60 дней.
 - Отслеживать опоздания и плохие отзывы по категориям и штатам клиентов.
 - Заранее уведомлять клиентов о риске задержки заказа.
-- Создать dashboard качества продавцов на основе доставки, отмен и отзывов.
+- Использовать DataLens-dashboard для регулярного мониторинга продаж, retention, доставки и отзывов.
 - Проверять новые механики удержания и доставки с помощью реальных A/B-тестов.
+
+## DataLens-dashboard
+
+Для проекта подготовлены шесть компактных CSV-витрин и подробный макет дашборда в Yandex DataLens.
+
+Предлагаемая структура:
+
+| Страница | Основные показатели |
+|---|---|
+| Главное | GMV, заказы, клиенты, средний чек, повторные клиенты, опоздания |
+| Продажи | динамика GMV и заказов, категории, средний чек |
+| Retention и клиенты | когортный retention и RFM-сегменты |
+| Доставка и отзывы | опоздания, плохие отзывы, оценки и штаты |
+
+Готовые витрины находятся в папке [`datalens/data`](datalens/data), а пошаговая инструкция по сборке — в [`datalens/README.md`](datalens/README.md).
+
+```bash
+python src/prepare_datalens_data.py
+```
+
+Скрипт повторно создаёт все витрины DataLens из исходных CSV Olist.
 
 ## Схема анализа
 
@@ -81,6 +102,9 @@ flowchart LR
     C --> E[Когортный retention и RFM]
     C --> F[Доставка и отзывы]
     F --> G[Базовые статистические тесты]
+    D --> I[DataLens-dashboard]
+    E --> I
+    F --> I
     D --> H[Бизнес-рекомендации]
     E --> H
     G --> H
@@ -105,13 +129,17 @@ olist-ecommerce-analytics/
 ├── data/
 │   └── raw/
 │       └── README.md
+├── datalens/
+│   ├── data/
+│   └── README.md
 ├── notebooks/
 │   └── olist_ecommerce_analysis.ipynb
 ├── reports/
 │   ├── figures/
 │   └── analytical_report.md
 ├── src/
-│   └── create_notebook.py
+│   ├── create_notebook.py
+│   └── prepare_datalens_data.py
 ├── .gitignore
 ├── README.md
 └── requirements.txt
@@ -159,5 +187,5 @@ erDiagram
 
 - [Выполненный notebook](notebooks/olist_ecommerce_analysis.ipynb)
 - [Аналитический отчёт](reports/analytical_report.md)
+- [Витрины и инструкция для DataLens](datalens/README.md)
 - [Инструкция по загрузке датасета](data/raw/README.md)
-
