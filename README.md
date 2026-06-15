@@ -2,6 +2,8 @@
 
 [![Python](https://img.shields.io/badge/Python-3.12-blue)](https://www.python.org/)
 [![pandas](https://img.shields.io/badge/pandas-2.3.3-150458)](https://pandas.pydata.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14+-336791)](https://www.postgresql.org/)
+[![DataLens](https://img.shields.io/badge/Yandex-DataLens-yellow)](https://datalens.yandex.ru/)
 [![Статус проекта](https://img.shields.io/badge/статус-завершён-success)](#)
 
 Полный продуктовый анализ бразильского маркетплейса Olist. Проект посвящён динамике продаж, удержанию клиентов, RFM-сегментации, качеству доставки и отзывам покупателей.
@@ -92,12 +94,39 @@ python src/prepare_datalens_data.py
 
 Скрипт повторно создаёт все витрины DataLens из исходных CSV Olist.
 
+## SQL-анализ
+
+В проект добавлена полноценная SQL-часть под PostgreSQL, которая повторяет основные расчёты Python-анализа.
+
+SQL-блок включает:
+
+- создание схемы, таблиц и индексов;
+- импорт исходных CSV;
+- проверки качества данных;
+- materialized view на уровне заказа;
+- расчёт основных KPI, GMV и среднего чека;
+- анализ повторных клиентов и когортного retention;
+- RFM-сегментацию;
+- анализ доставки, отзывов и качества продавцов.
+
+Используемые конструкции:
+
+```text
+JOIN · GROUP BY · HAVING · CTE · LAG · ROW_NUMBER · NTILE
+```
+
+Все запросы проверены на PostgreSQL с полным импортом исходных данных Olist. SQL-результаты совпадают с Python-расчётами.
+
+[Открыть SQL-запросы и инструкцию запуска](sql/README.md)
+
 ## Схема анализа
 
 ```mermaid
 flowchart LR
     A[Исходные CSV Olist] --> B[Проверка качества данных]
     B --> C[Витрина на уровне заказа]
+    A --> J[PostgreSQL]
+    J --> K[SQL-витрина и запросы]
     C --> D[Продажи и категории]
     C --> E[Когортный retention и RFM]
     C --> F[Доставка и отзывы]
@@ -105,6 +134,7 @@ flowchart LR
     D --> I[DataLens-dashboard]
     E --> I
     F --> I
+    K --> I
     D --> H[Бизнес-рекомендации]
     E --> H
     G --> H
@@ -137,6 +167,11 @@ olist-ecommerce-analytics/
 ├── reports/
 │   ├── figures/
 │   └── analytical_report.md
+├── sql/
+│   ├── 00_create_tables.sql
+│   ├── 03_create_order_mart.sql
+│   ├── 08_cohort_retention.sql
+│   └── ...
 ├── src/
 │   ├── create_notebook.py
 │   └── prepare_datalens_data.py
@@ -164,6 +199,17 @@ notebooks/olist_ecommerce_analysis.ipynb
 
 Notebook использует относительные пути и запускается из корня репозитория или папки `notebooks`.
 
+Для запуска SQL-части:
+
+```bash
+createdb olist_analytics
+psql -d olist_analytics -f sql/00_create_tables.sql
+psql -d olist_analytics -f sql/01_import_csv.sql
+psql -d olist_analytics -f sql/03_create_order_mart.sql
+```
+
+Подробная инструкция находится в [`sql/README.md`](sql/README.md).
+
 ## Модель данных
 
 ```mermaid
@@ -187,5 +233,6 @@ erDiagram
 
 - [Выполненный notebook](notebooks/olist_ecommerce_analysis.ipynb)
 - [Аналитический отчёт](reports/analytical_report.md)
+- [SQL-запросы и инструкция запуска](sql/README.md)
 - [Витрины и инструкция для DataLens](datalens/README.md)
 - [Инструкция по загрузке датасета](data/raw/README.md)
