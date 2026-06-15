@@ -1,104 +1,104 @@
-# Brazilian E-Commerce Analytics: Olist
+# Аналитика бразильского маркетплейса Olist
 
 [![Python](https://img.shields.io/badge/Python-3.12-blue)](https://www.python.org/)
 [![pandas](https://img.shields.io/badge/pandas-2.3.3-150458)](https://pandas.pydata.org/)
-[![Project Status](https://img.shields.io/badge/status-complete-success)](#)
+[![Статус проекта](https://img.shields.io/badge/статус-завершён-success)](#)
 
-End-to-end product analytics project based on the Brazilian Olist marketplace dataset. The analysis focuses on sales dynamics, customer retention, RFM segmentation, delivery quality, and customer reviews.
+Полный продуктовый анализ бразильского маркетплейса Olist. Проект посвящён динамике продаж, удержанию клиентов, RFM-сегментации, качеству доставки и отзывам покупателей.
 
-## Executive Summary
+## Краткое резюме
 
-The marketplace generated **15.42M GMV** from **96,478 delivered orders**, but only **3.00% of customers made more than one purchase**. Delivery quality is strongly associated with customer satisfaction: late orders have a **53.99% bad-review share**, compared with **9.19%** for orders delivered on time.
+Маркетплейс получил **15,42 млн GMV** от **96 478 доставленных заказов**, однако только **3,00% клиентов совершили более одной покупки**. Качество доставки тесно связано с удовлетворённостью покупателей: доля плохих отзывов среди опоздавших заказов составляет **53,99%**, а среди доставленных вовремя — **9,19%**.
 
-The main business opportunities are improving second-purchase conversion and reducing delivery delays.
+Основные точки роста — повышение конверсии во вторую покупку и сокращение числа опозданий.
 
-## Key Results
+## Ключевые результаты
 
-| Metric | Result |
+| Метрика | Результат |
 |---|---:|
-| Delivered orders | 96,478 |
-| Unique customers | 93,358 |
-| GMV including freight | 15.42M |
-| Average order value | 159.83 |
-| Repeat customer rate | 3.00% |
-| Average review score | 4.16 |
-| Late delivery share | 8.11% |
-| Bad-review share: on-time orders | 9.19% |
-| Bad-review share: late orders | 53.99% |
+| Доставленные заказы | 96 478 |
+| Уникальные клиенты | 93 358 |
+| GMV с учётом доставки | 15,42 млн |
+| Средний чек | 159,83 |
+| Доля повторных клиентов | 3,00% |
+| Средняя оценка | 4,16 |
+| Доля опоздавших доставок | 8,11% |
+| Доля плохих отзывов: вовремя | 9,19% |
+| Доля плохих отзывов: с опозданием | 53,99% |
 
-## Business Questions
+## Бизнес-вопросы
 
-1. How are orders and GMV changing over time?
-2. Which product categories generate the most GMV?
-3. How often do customers return after their first purchase?
-4. Which customer segments should the business prioritize?
-5. Are late deliveries associated with worse customer reviews?
+1. Как меняются количество заказов и GMV со временем?
+2. Какие категории товаров создают наибольший GMV?
+3. Как часто клиенты возвращаются после первой покупки?
+4. Какие клиентские сегменты следует считать приоритетными?
+5. Связаны ли опоздания доставки с ухудшением отзывов?
 
-## Main Findings
+## Основные выводы
 
-### 1. Customer retention is the main growth limitation
+### 1. Удержание клиентов — главное ограничение роста
 
-Only **3.00%** of customers placed more than one delivered order. Cohort retention also drops sharply after the first purchase month. Olist growth therefore depends heavily on continuous customer acquisition.
+Только **3,00%** клиентов оформили более одного доставленного заказа. Когортный retention также резко снижается после месяца первой покупки. Поэтому рост Olist в значительной степени зависит от постоянного привлечения новых клиентов.
 
-### 2. Late delivery is strongly associated with poor reviews
+### 2. Опоздание доставки тесно связано с плохими отзывами
 
-| Delivery status | Average review | Bad-review share |
+| Статус доставки | Средняя оценка | Доля плохих отзывов |
 |---|---:|---:|
-| On time | 4.29 | 9.19% |
-| Late | 2.57 | 53.99% |
+| Вовремя | 4,29 | 9,19% |
+| С опозданием | 2,57 | 53,99% |
 
-The difference is statistically significant under both a chi-square test for bad-review share and a Welch t-test for average review score. Since the dataset is observational, this result shows association rather than proven causality.
+Различия статистически значимы по результатам критерия хи-квадрат для доли плохих отзывов и t-критерия Уэлча для средней оценки. Поскольку данные являются наблюдательными, результат показывает связь, но не доказывает причинность.
 
-![Delivery reviews](reports/figures/delivery_reviews.png)
+![Доставка и отзывы](reports/figures/delivery_reviews.png)
 
-### 3. RFM highlights actionable customer groups
+### 3. RFM выделяет клиентские сегменты для практической работы
 
-Recent one-time buyers form the largest CRM opportunity. Repeat high-value customers are rare but economically important and should be protected through loyalty and service-quality initiatives.
+Недавние клиенты с одной покупкой представляют крупнейшую возможность для CRM-коммуникаций. Повторные клиенты с высокой ценностью встречаются редко, но важны для бизнеса, поэтому их необходимо удерживать с помощью программ лояльности и качественного сервиса.
 
-### 4. Sales and category performance require regular monitoring
+### 4. Продажи и категории требуют регулярного мониторинга
 
-Monthly sales show strong growth and seasonality. The leading product categories account for a meaningful share of marketplace GMV.
+Продажи по месяцам демонстрируют рост и сезонность. Ведущие товарные категории формируют значительную часть GMV маркетплейса.
 
-![Monthly sales](reports/figures/monthly_sales.png)
+![Продажи по месяцам](reports/figures/monthly_sales.png)
 
-![Top categories](reports/figures/top_categories.png)
+![Топ категорий](reports/figures/top_categories.png)
 
-## Recommendations
+## Рекомендации
 
-- Launch CRM campaigns aimed at a second purchase within 30–60 days.
-- Monitor late-delivery and bad-review shares by category and customer state.
-- Proactively notify customers when an order is at risk of delay.
-- Build a seller-quality dashboard combining delivery, cancellation, and review metrics.
-- Validate new retention and delivery initiatives through real A/B tests.
+- Запустить CRM-кампании для стимулирования второй покупки в течение 30–60 дней.
+- Отслеживать опоздания и плохие отзывы по категориям и штатам клиентов.
+- Заранее уведомлять клиентов о риске задержки заказа.
+- Создать dashboard качества продавцов на основе доставки, отмен и отзывов.
+- Проверять новые механики удержания и доставки с помощью реальных A/B-тестов.
 
-## Analysis Workflow
+## Схема анализа
 
 ```mermaid
 flowchart LR
-    A[Raw Olist CSV files] --> B[Data-quality checks]
-    B --> C[Order-level analytical mart]
-    C --> D[Sales and category analysis]
-    C --> E[Cohort retention and RFM]
-    C --> F[Delivery and review analysis]
-    F --> G[Basic statistical tests]
-    D --> H[Business recommendations]
+    A[Исходные CSV Olist] --> B[Проверка качества данных]
+    B --> C[Витрина на уровне заказа]
+    C --> D[Продажи и категории]
+    C --> E[Когортный retention и RFM]
+    C --> F[Доставка и отзывы]
+    F --> G[Базовые статистические тесты]
+    D --> H[Бизнес-рекомендации]
     E --> H
     G --> H
 ```
 
-## Statistical Methods
+## Статистические методы
 
-The project deliberately uses methods appropriate for a Junior / Junior+ analyst:
+В проекте намеренно используются методы, соответствующие уровню Junior / Junior+ аналитика:
 
-- descriptive statistics;
-- cohort retention;
-- RFM segmentation;
-- chi-square test for association between delivery status and bad reviews;
-- Welch t-test for difference in average review scores.
+- описательная статистика;
+- когортный retention;
+- RFM-сегментация;
+- критерий хи-квадрат для проверки связи статуса доставки с плохим отзывом;
+- t-критерий Уэлча для сравнения средних оценок.
 
-Complex causal-inference and machine-learning methods are intentionally outside the main project scope.
+Сложные методы причинно-следственного анализа и машинного обучения намеренно не включены в основную версию проекта.
 
-## Repository Structure
+## Структура репозитория
 
 ```text
 olist-ecommerce-analytics/
@@ -117,26 +117,26 @@ olist-ecommerce-analytics/
 └── requirements.txt
 ```
 
-## Run Locally
+## Локальный запуск
 
-1. Clone the repository.
-2. Download the [Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce).
-3. Extract the CSV files into `data/raw/`.
-4. Install dependencies:
+1. Клонируйте репозиторий.
+2. Скачайте [Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce).
+3. Распакуйте CSV-файлы в папку `data/raw/`.
+4. Установите зависимости:
 
 ```bash
 python -m pip install -r requirements.txt
 ```
 
-5. Open and run:
+5. Откройте и выполните:
 
 ```text
 notebooks/olist_ecommerce_analysis.ipynb
 ```
 
-The notebook uses relative paths and can be run from either the repository root or the `notebooks` directory.
+Notebook использует относительные пути и запускается из корня репозитория или папки `notebooks`.
 
-## Data Model
+## Модель данных
 
 ```mermaid
 erDiagram
@@ -148,16 +148,16 @@ erDiagram
     PRODUCTS ||--o{ CATEGORY_TRANSLATION : category_name
 ```
 
-## Limitations
+## Ограничения
 
-- The dataset is historical and observational, so statistical associations do not prove causality.
-- GMV includes product price and freight but does not represent marketplace profit.
-- Marketing costs, margins, and experiment assignments are unavailable.
-- Boundary months are incomplete and excluded from the sales-trend chart.
+- Данные являются историческими и наблюдательными, поэтому статистические связи не доказывают причинность.
+- GMV включает стоимость товаров и доставки, но не отражает прибыль маркетплейса.
+- В данных отсутствуют маркетинговые расходы, маржинальность и распределение по экспериментальным группам.
+- Крайние месяцы представлены не полностью и исключены из графика динамики продаж.
 
-## Detailed Materials
+## Материалы проекта
 
-- [Complete executed notebook](notebooks/olist_ecommerce_analysis.ipynb)
-- [Analytical report](reports/analytical_report.md)
-- [Dataset setup instructions](data/raw/README.md)
+- [Выполненный notebook](notebooks/olist_ecommerce_analysis.ipynb)
+- [Аналитический отчёт](reports/analytical_report.md)
+- [Инструкция по загрузке датасета](data/raw/README.md)
 

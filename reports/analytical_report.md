@@ -1,72 +1,72 @@
-# Analytical Report: Brazilian Olist Marketplace
+# Аналитический отчёт: бразильский маркетплейс Olist
 
-## Objective
+## Цель
 
-The purpose of the analysis is to identify the main constraints on marketplace growth and customer experience using sales, customer, delivery, and review data.
+Цель анализа — определить основные ограничения роста маркетплейса и качества клиентского опыта на основе данных о продажах, клиентах, доставке и отзывах.
 
-## Dataset and Method
+## Данные и методология
 
-The project uses the Brazilian Olist public e-commerce dataset. Seven source tables are aggregated into an order-level analytical mart. The main analytical unit is one order.
+В проекте используется открытый e-commerce датасет Olist. Семь исходных таблиц объединены в аналитическую витрину на уровне заказа. Основная единица анализа — один заказ.
 
-The analysis covers:
+Анализ включает:
 
-- data-quality validation;
-- sales and category performance;
-- repeat-purchase rate;
-- monthly cohort retention;
-- RFM customer segmentation;
-- delivery-quality metrics;
-- basic statistical testing.
+- проверку качества данных;
+- исследование продаж и товарных категорий;
+- расчёт доли повторных клиентов;
+- когортный retention;
+- RFM-сегментацию клиентов;
+- метрики качества доставки;
+- базовые статистические тесты.
 
-## Main Results
+## Основные результаты
 
-### Commercial performance
+### Коммерческие показатели
 
-- Delivered orders: **96,478**
-- Unique customers: **93,358**
-- Product revenue: **13.22M**
-- GMV including freight: **15.42M**
-- Average order value: **159.83**
+- Доставленные заказы: **96 478**
+- Уникальные клиенты: **93 358**
+- Выручка от товаров: **13,22 млн**
+- GMV с учётом доставки: **15,42 млн**
+- Средний чек: **159,83**
 
-### Customer retention
+### Удержание клиентов
 
-Only **3.00%** of customers placed more than one delivered order. This suggests that the marketplace relies mainly on new-customer acquisition rather than recurring customer value.
+Только **3,00%** клиентов оформили более одного доставленного заказа. Это указывает на то, что маркетплейс в основном зависит от привлечения новых клиентов, а не от повторной ценности существующей базы.
 
-Cohort retention declines sharply after month zero. The largest practical CRM opportunity is converting recent first-time buyers into second-time buyers.
+Когортный retention резко снижается после нулевого месяца. Крупнейшая практическая возможность для CRM — конвертация недавних покупателей во вторую покупку.
 
-### Delivery and customer satisfaction
+### Доставка и удовлетворённость клиентов
 
-Orders delivered on time have an average review score of **4.29** and a bad-review share of **9.19%**. Late orders have an average review score of **2.57** and a bad-review share of **53.99%**.
+Заказы, доставленные вовремя, имеют среднюю оценку **4,29** и долю плохих отзывов **9,19%**. Для опоздавших заказов средняя оценка составляет **2,57**, а доля плохих отзывов — **53,99%**.
 
-The differences are statistically significant:
+Различия статистически значимы:
 
-- chi-square test rejects the null hypothesis of independence between late-delivery status and bad-review status;
-- Welch t-test rejects the null hypothesis of equal average review scores.
+- критерий хи-квадрат позволяет отклонить гипотезу о независимости статуса доставки и плохого отзыва;
+- t-критерий Уэлча позволяет отклонить гипотезу о равенстве средних оценок.
 
-These results show a strong association. They do not prove that delivery delay is the only cause of poor reviews because orders were not randomly assigned to delivery-status groups.
+Результаты показывают сильную связь, но не доказывают, что опоздание является единственной причиной плохого отзыва, поскольку заказы не распределялись по группам случайным образом.
 
-## Recommendations
+## Рекомендации
 
-### Improve second-purchase conversion
+### Повысить конверсию во вторую покупку
 
-Create CRM campaigns for customers within 30–60 days of their first order. Campaign effectiveness should be measured through repeat-purchase rate and revenue per customer.
+Запустить CRM-кампании для клиентов в течение 30–60 дней после первого заказа. Эффективность кампаний оценивать по доле повторных покупок и выручке на клиента.
 
-### Introduce delivery-quality monitoring
+### Внедрить мониторинг качества доставки
 
-Track late-delivery share, average delay, average review score, and bad-review share by category, customer state, and seller.
+Отслеживать долю опозданий, среднюю задержку, среднюю оценку и долю плохих отзывов по категориям, штатам клиентов и продавцам.
 
-### Communicate proactively about delays
+### Заранее сообщать о задержках
 
-Notify customers before the expected-delivery date when an order is at risk. The effect of notifications or compensation should be validated through a real randomized experiment.
+Уведомлять клиентов до ожидаемой даты доставки, если заказ находится под риском опоздания. Эффект уведомлений или компенсаций необходимо проверять в реальном рандомизированном эксперименте.
 
-### Protect valuable customer segments
+### Удерживать ценные сегменты
 
-Use RFM segments to separate recent first-time buyers, repeat high-value buyers, and inactive customers. Apply different communication strategies to each group.
+Использовать RFM-сегменты для разделения недавних покупателей, повторных ценных клиентов и неактивных клиентов. Для каждого сегмента применять отдельную коммуникационную стратегию.
 
-## Limitations and Next Steps
+## Ограничения и следующие шаги
 
-- Marketplace margin and customer-acquisition cost are unavailable.
-- The analysis cannot measure profitability or customer lifetime value accurately.
-- Observational comparisons cannot establish causality.
-- A future project version can add SQL queries and a dashboard after the Python analysis is finalized.
+- В данных отсутствуют маржинальность маркетплейса и стоимость привлечения клиента.
+- Нельзя точно рассчитать прибыльность и пожизненную ценность клиента.
+- Наблюдательные сравнения не позволяют установить причинность.
+- После завершения Python-анализа в следующую версию проекта можно добавить SQL-запросы и dashboard.
 

@@ -20,25 +20,25 @@ def code(text: str) -> None:
 
 markdown(
     """
-# Brazilian E-Commerce Analytics: Olist
+# Аналитика бразильского маркетплейса Olist
 
-## Business objective
+## Бизнес-задача
 
-This project analyzes the Brazilian Olist marketplace to identify growth opportunities in sales, customer retention, and delivery quality.
+Цель проекта — определить точки роста бразильского маркетплейса Olist на основе анализа продаж, удержания клиентов и качества доставки.
 
-**Main questions**
+**Основные вопросы**
 
-1. How are orders and GMV changing over time?
-2. Which product categories generate the most GMV?
-3. How often do customers return after their first purchase?
-4. Which customer segments should the business prioritize?
-5. How strongly are late deliveries associated with poor reviews?
+1. Как меняются количество заказов и GMV со временем?
+2. Какие категории товаров создают наибольший GMV?
+3. Как часто клиенты возвращаются после первой покупки?
+4. Какие клиентские сегменты следует считать приоритетными?
+5. Насколько сильно опоздания доставки связаны с плохими отзывами?
 
-The analysis is designed as a clear Junior / Junior+ portfolio project. It uses descriptive analytics, cohort analysis, RFM segmentation, and two basic statistical tests.
+Проект рассчитан на портфолио аналитика уровня Junior / Junior+. В нём используются описательная аналитика, когортный анализ, RFM-сегментация и два базовых статистических теста.
 """
 )
 
-markdown("## 1. Setup and data loading")
+markdown("## 1. Настройка окружения и загрузка данных")
 code(
     """
 from pathlib import Path
@@ -62,7 +62,7 @@ DATA_DIR = PROJECT_ROOT / "data" / "raw"
 FIGURES_DIR = PROJECT_ROOT / "reports" / "figures"
 FIGURES_DIR.mkdir(parents=True, exist_ok=True)
 
-print("Data directory exists:", DATA_DIR.exists())
+print("Папка с данными найдена:", DATA_DIR.exists())
 """
 )
 code(
@@ -76,38 +76,38 @@ products = pd.read_csv(DATA_DIR / "olist_products_dataset.csv")
 category_translation = pd.read_csv(DATA_DIR / "product_category_name_translation.csv")
 
 tables = {
-    "customers": customers,
-    "orders": orders,
-    "items": items,
-    "payments": payments,
-    "reviews": reviews,
-    "products": products,
-    "category_translation": category_translation,
+    "клиенты": customers,
+    "заказы": orders,
+    "товары_в_заказах": items,
+    "платежи": payments,
+    "отзывы": reviews,
+    "товары": products,
+    "перевод_категорий": category_translation,
 }
 
 pd.DataFrame(
     {
-        "rows": {name: len(table) for name, table in tables.items()},
-        "columns": {name: table.shape[1] for name, table in tables.items()},
-        "duplicates": {name: table.duplicated().sum() for name, table in tables.items()},
-        "missing_values": {name: int(table.isna().sum().sum()) for name, table in tables.items()},
+        "строки": {name: len(table) for name, table in tables.items()},
+        "столбцы": {name: table.shape[1] for name, table in tables.items()},
+        "дубли": {name: table.duplicated().sum() for name, table in tables.items()},
+        "пропуски": {name: int(table.isna().sum().sum()) for name, table in tables.items()},
     }
-).sort_values("rows", ascending=False)
+).sort_values("строки", ascending=False)
 """
 )
 
 markdown(
     """
-### Data-quality notes
+### Особенности качества данных
 
-- Missing delivery dates are expected for cancelled or unavailable orders.
-- One order may contain multiple products, payments, or review records.
-- Therefore, all one-to-many tables must be aggregated before they are joined to the order table.
-- The main analytical unit in this project is **one order**.
+- Пропуски в датах доставки ожидаемы для отменённых и недоступных заказов.
+- Один заказ может содержать несколько товаров, платежей или записей с отзывами.
+- Поэтому перед объединением с таблицей заказов все таблицы со связью «один ко многим» необходимо агрегировать.
+- Основная единица анализа в проекте — **один заказ**.
 """
 )
 
-markdown("## 2. Building the order-level analytical mart")
+markdown("## 2. Создание аналитической витрины на уровне заказа")
 code(
     """
 date_columns = [
@@ -180,13 +180,13 @@ mart["bad_review"] = mart["review_score"].le(2).where(mart["review_score"].notna
 
 delivered = mart.loc[mart["order_status"].eq("delivered")].copy()
 
-print("Orders in mart:", mart["order_id"].nunique())
-print("Delivered orders:", delivered["order_id"].nunique())
-print("One row per order:", mart["order_id"].is_unique)
+print("Заказов в витрине:", mart["order_id"].nunique())
+print("Доставленных заказов:", delivered["order_id"].nunique())
+print("Одна строка соответствует одному заказу:", mart["order_id"].is_unique)
 """
 )
 
-markdown("## 3. Executive KPIs")
+markdown("## 3. Основные показатели")
 code(
     """
 delivered_with_items = delivered.loc[delivered["product_revenue"].notna()].copy()
@@ -201,13 +201,13 @@ late_delivery_share = delivered["is_late"].mean()
 
 kpis = pd.Series(
     {
-        "delivered_orders": total_orders,
-        "unique_customers": unique_customers,
-        "product_revenue": product_revenue,
-        "gmv_including_freight": gmv,
-        "average_order_value": aov,
-        "average_review_score": average_review,
-        "late_delivery_share": late_delivery_share,
+        "доставленные_заказы": total_orders,
+        "уникальные_клиенты": unique_customers,
+        "выручка_от_товаров": product_revenue,
+        "gmv_с_учётом_доставки": gmv,
+        "средний_чек": aov,
+        "средняя_оценка": average_review,
+        "доля_опозданий": late_delivery_share,
     }
 )
 
@@ -217,11 +217,11 @@ kpis
 
 markdown(
     """
-**Interpretation:** Olist is primarily a single-purchase marketplace. The next sections evaluate whether growth is driven mainly by new customers and whether delivery quality is associated with customer satisfaction.
+**Интерпретация:** Olist преимущественно является маркетплейсом одной покупки. Далее проверим, зависит ли рост главным образом от новых клиентов и связано ли качество доставки с удовлетворённостью покупателей.
 """
 )
 
-markdown("## 4. Sales dynamics")
+markdown("## 4. Динамика продаж")
 code(
     """
 monthly_sales = (
@@ -233,7 +233,7 @@ monthly_sales = (
     )
 )
 
-# Remove partial boundary months from the trend chart.
+# Убираем неполные крайние месяцы из графика динамики.
 monthly_sales_complete = monthly_sales.loc[
     monthly_sales["purchase_month"].between("2017-01-01", "2018-08-01")
 ].copy()
@@ -241,10 +241,12 @@ monthly_sales_complete = monthly_sales.loc[
 fig, axes = plt.subplots(1, 2, figsize=(15, 5))
 sns.lineplot(data=monthly_sales_complete, x="purchase_month", y="orders", marker="o", ax=axes[0])
 sns.lineplot(data=monthly_sales_complete, x="purchase_month", y="gmv", marker="o", ax=axes[1])
-axes[0].set_title("Delivered orders by month")
-axes[1].set_title("GMV by month")
+axes[0].set_title("Доставленные заказы по месяцам")
+axes[1].set_title("GMV по месяцам")
 axes[0].set_xlabel("")
 axes[1].set_xlabel("")
+axes[0].set_ylabel("Количество заказов")
+axes[1].set_ylabel("GMV")
 plt.tight_layout()
 plt.savefig(FIGURES_DIR / "monthly_sales.png", dpi=150, bbox_inches="tight")
 plt.show()
@@ -262,18 +264,24 @@ category_sales = (
 
 plt.figure(figsize=(10, 6))
 sns.barplot(data=category_sales, y="product_category_name_english", x="gmv")
-plt.title("Top 10 product categories by GMV")
+plt.title("Топ-10 товарных категорий по GMV")
 plt.xlabel("GMV")
 plt.ylabel("")
 plt.tight_layout()
 plt.savefig(FIGURES_DIR / "top_categories.png", dpi=150, bbox_inches="tight")
 plt.show()
 
-category_sales
+category_sales.rename(
+    columns={
+        "product_category_name_english": "категория",
+        "orders": "заказы",
+        "gmv": "gmv",
+    }
+)
 """
 )
 
-markdown("## 5. Repeat purchases and cohort retention")
+markdown("## 5. Повторные покупки и когортный retention")
 code(
     """
 orders_per_customer = (
@@ -282,8 +290,14 @@ orders_per_customer = (
 )
 
 repeat_customer_rate = orders_per_customer.gt(1).mean()
-print(f"Repeat customer rate: {repeat_customer_rate:.2%}")
-print(orders_per_customer.value_counts().sort_index().head(10))
+print(f"Доля повторных клиентов: {repeat_customer_rate:.2%}")
+print(
+    orders_per_customer.value_counts()
+    .sort_index()
+    .head(10)
+    .rename_axis("количество_заказов")
+    .rename("клиенты")
+)
 """
 )
 code(
@@ -333,9 +347,9 @@ retention_pivot = cohort_retention.pivot(
 
 plt.figure(figsize=(14, 8))
 sns.heatmap(retention_pivot.iloc[:, :13], annot=True, fmt=".1%", cmap="Blues")
-plt.title("Monthly customer retention by cohort")
-plt.xlabel("Months since first purchase")
-plt.ylabel("First purchase cohort")
+plt.title("Помесячный retention клиентов по когортам")
+plt.xlabel("Месяцев после первой покупки")
+plt.ylabel("Когорта первой покупки")
 plt.tight_layout()
 plt.savefig(FIGURES_DIR / "cohort_retention.png", dpi=150, bbox_inches="tight")
 plt.show()
@@ -344,11 +358,11 @@ plt.show()
 
 markdown(
     """
-**Interpretation:** `cohort_index = 0` is the month of a customer's first purchase. Index `1` is the next month, index `2` is two months later, and so on. This aligns different calendar cohorts by customer lifetime.
+**Интерпретация:** `cohort_index = 0` — месяц первой покупки клиента. Индекс `1` означает следующий месяц, индекс `2` — два месяца спустя и так далее. Индекс позволяет сравнивать разные календарные когорты на одинаковом этапе жизни клиента.
 """
 )
 
-markdown("## 6. RFM customer segmentation")
+markdown("## 6. RFM-сегментация клиентов")
 code(
     """
 snapshot_date = delivered["order_purchase_timestamp"].max() + pd.Timedelta(days=1)
@@ -369,7 +383,7 @@ rfm["R"] = pd.qcut(
     labels=[5, 4, 3, 2, 1],
 ).astype(int)
 
-# Frequency is highly concentrated at one order, so business rules are clearer than quantiles.
+# Frequency сильно сконцентрирована на одном заказе, поэтому бизнес-правила понятнее квантилей.
 rfm["F"] = pd.cut(
     rfm["frequency"],
     bins=[0, 1, 2, 3, 4, np.inf],
@@ -391,8 +405,8 @@ rfm["segment"] = np.select(
         (rfm["R"] <= 2) & (rfm["F"] >= 2),
         (rfm["R"] <= 2),
     ],
-    ["Champions", "New customers", "At risk", "Inactive"],
-    default="Regular",
+    ["Чемпионы", "Новые клиенты", "Под риском", "Неактивные"],
+    default="Обычные",
 )
 
 segment_summary = (
@@ -406,11 +420,19 @@ segment_summary = (
     .sort_values("customers", ascending=False)
 )
 
-segment_summary
+segment_summary.rename(
+    columns={
+        "segment": "сегмент",
+        "customers": "клиенты",
+        "average_recency": "средняя_давность",
+        "average_frequency": "средняя_частота",
+        "average_monetary": "средняя_ценность",
+    }
+)
 """
 )
 
-markdown("## 7. Delivery quality and reviews")
+markdown("## 7. Качество доставки и отзывы")
 code(
     """
 delivery_analysis = (
@@ -434,7 +456,15 @@ delivery_metrics = (
     )
 )
 
-delivery_metrics
+delivery_metrics.rename(
+    index={False: "Вовремя", True: "С опозданием"},
+    columns={
+        "orders": "заказы",
+        "average_review": "средняя_оценка",
+        "bad_review_share": "доля_плохих_отзывов",
+        "average_delivery_days": "среднее_время_доставки",
+    }
+)
 """
 )
 code(
@@ -442,14 +472,16 @@ code(
 fig, axes = plt.subplots(1, 2, figsize=(12, 5))
 
 plot_data = delivery_metrics.reset_index()
-plot_data["delivery_status"] = plot_data["is_late"].map({False: "On time", True: "Late"})
+plot_data["delivery_status"] = plot_data["is_late"].map({False: "Вовремя", True: "С опозданием"})
 
 sns.barplot(data=plot_data, x="delivery_status", y="average_review", ax=axes[0])
 sns.barplot(data=plot_data, x="delivery_status", y="bad_review_share", ax=axes[1])
-axes[0].set_title("Average review score")
-axes[1].set_title("Bad review share")
+axes[0].set_title("Средняя оценка")
+axes[1].set_title("Доля плохих отзывов")
 axes[0].set_xlabel("")
 axes[1].set_xlabel("")
+axes[0].set_ylabel("Средняя оценка")
+axes[1].set_ylabel("Доля плохих отзывов")
 axes[1].yaxis.set_major_formatter(plt.FuncFormatter(lambda value, _: f"{value:.0%}"))
 plt.tight_layout()
 plt.savefig(FIGURES_DIR / "delivery_reviews.png", dpi=150, bbox_inches="tight")
@@ -459,14 +491,14 @@ plt.show()
 
 markdown(
     """
-### Basic statistical tests
+### Базовые статистические тесты
 
-The tests below answer whether the observed differences are statistically significant:
+Тесты ниже отвечают на вопрос, являются ли наблюдаемые различия статистически значимыми:
 
-- **Chi-square test:** association between delivery status and bad-review status.
-- **Welch t-test:** difference in average review score.
+- **Критерий хи-квадрат:** связь между статусом доставки и плохим отзывом.
+- **t-критерий Уэлча:** различие средней оценки.
 
-These are observational data, not a randomized experiment. Statistical significance shows an association but does not prove causality.
+Это наблюдательные данные, а не рандомизированный эксперимент. Статистическая значимость показывает наличие связи, но не доказывает причинность.
 """
 )
 code(
@@ -493,12 +525,12 @@ t_stat, t_p_value = ttest_ind(
 
 statistical_results = pd.DataFrame(
     {
-        "test": ["Chi-square: bad review share", "Welch t-test: average review"],
-        "statistic": [chi2_stat, t_stat],
+        "тест": ["Хи-квадрат: доля плохих отзывов", "t-критерий Уэлча: средняя оценка"],
+        "статистика": [chi2_stat, t_stat],
         "p_value": [chi2_p_value, t_p_value],
-        "conclusion_at_5_percent": [
-            "Reject H0" if chi2_p_value < 0.05 else "Do not reject H0",
-            "Reject H0" if t_p_value < 0.05 else "Do not reject H0",
+        "вывод_при_alpha_0_05": [
+            "Отклоняем H0" if chi2_p_value < 0.05 else "Не отклоняем H0",
+            "Отклоняем H0" if t_p_value < 0.05 else "Не отклоняем H0",
         ],
     }
 )
@@ -507,19 +539,19 @@ statistical_results
 """
 )
 
-markdown("## 8. Final conclusions and recommendations")
+markdown("## 8. Итоговые выводы и рекомендации")
 code(
     """
 summary = {
-    "delivered_orders": total_orders,
-    "unique_customers": unique_customers,
+    "доставленные_заказы": total_orders,
+    "уникальные_клиенты": unique_customers,
     "gmv": round(gmv, 2),
-    "average_order_value": round(aov, 2),
-    "repeat_customer_rate": round(repeat_customer_rate, 4),
-    "on_time_bad_review_share": round(delivery_metrics.loc[False, "bad_review_share"], 4),
-    "late_bad_review_share": round(delivery_metrics.loc[True, "bad_review_share"], 4),
-    "on_time_average_review": round(delivery_metrics.loc[False, "average_review"], 2),
-    "late_average_review": round(delivery_metrics.loc[True, "average_review"], 2),
+    "средний_чек": round(aov, 2),
+    "доля_повторных_клиентов": round(repeat_customer_rate, 4),
+    "доля_плохих_отзывов_вовремя": round(delivery_metrics.loc[False, "bad_review_share"], 4),
+    "доля_плохих_отзывов_с_опозданием": round(delivery_metrics.loc[True, "bad_review_share"], 4),
+    "средняя_оценка_вовремя": round(delivery_metrics.loc[False, "average_review"], 2),
+    "средняя_оценка_с_опозданием": round(delivery_metrics.loc[True, "average_review"], 2),
 }
 
 summary
@@ -527,26 +559,26 @@ summary
 )
 markdown(
     """
-### Key findings
+### Основные выводы
 
-1. **Retention is the main growth limitation.** The marketplace has a very low repeat-customer rate, so growth depends heavily on acquiring new customers.
-2. **Delivery quality is strongly associated with satisfaction.** Late orders have a substantially higher bad-review share and a lower average review score.
-3. **The category portfolio is concentrated.** The top categories generate a meaningful share of GMV and should be monitored separately.
-4. **RFM segmentation identifies actionable customer groups.** Recent one-time buyers are the largest CRM opportunity, while repeat high-value buyers should be protected.
+1. **Retention — главное ограничение роста.** Доля повторных клиентов очень низкая, поэтому рост сильно зависит от привлечения новых покупателей.
+2. **Качество доставки тесно связано с удовлетворённостью.** У опоздавших заказов значительно выше доля плохих отзывов и ниже средняя оценка.
+3. **Портфель категорий сконцентрирован.** Ведущие категории формируют значительную долю GMV и требуют отдельного мониторинга.
+4. **RFM-сегментация выделяет практические клиентские группы.** Недавние покупатели с одним заказом — крупнейшая возможность для CRM, а повторных ценных клиентов необходимо удерживать.
 
-### Business recommendations
+### Бизнес-рекомендации
 
-- Launch CRM campaigns focused on a second purchase within 30–60 days.
-- Monitor late-delivery share and bad-review share by category and state.
-- Prioritize proactive communication for orders at risk of delay.
-- Build a seller-quality dashboard using delivery, cancellation, and review metrics.
+- Запустить CRM-кампании для стимулирования второй покупки в течение 30–60 дней.
+- Отслеживать долю опозданий и плохих отзывов по категориям и штатам.
+- Заранее связываться с клиентами по заказам с риском задержки.
+- Создать dashboard качества продавцов на основе доставки, отмен и отзывов.
 
-### Limitations
+### Ограничения
 
-- Olist data are historical and observational; the analysis does not prove causality.
-- GMV includes product price and freight, but does not represent marketplace profit.
-- The dataset does not contain marketing costs, margins, or real experiment assignments.
-- Boundary months are incomplete and excluded from the sales trend chart.
+- Данные Olist являются историческими и наблюдательными; анализ не доказывает причинность.
+- GMV включает цену товара и доставку, но не отражает прибыль маркетплейса.
+- В данных отсутствуют маркетинговые расходы, маржинальность и реальные экспериментальные группы.
+- Крайние месяцы представлены не полностью и исключены из графика динамики продаж.
 """
 )
 
@@ -562,4 +594,4 @@ nb["metadata"] = {
 
 NOTEBOOK_PATH.parent.mkdir(parents=True, exist_ok=True)
 nbf.write(nb, NOTEBOOK_PATH)
-print(f"Created {NOTEBOOK_PATH}")
+print(f"Создан notebook: {NOTEBOOK_PATH}")
