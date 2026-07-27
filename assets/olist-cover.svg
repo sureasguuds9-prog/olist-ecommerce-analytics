@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
+  <title id="title">Olist E-commerce Analytics</title>
+  <desc id="desc">Ключевые показатели проекта: 96 478 доставленных заказов, 15,42 млн GMV, средний чек 159,83, 3% повторных клиентов, 8,11% опозданий и 53,99% плохих отзывов среди опоздавших заказов.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071A2E"/>
+      <stop offset="1" stop-color="#102B49"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#35C2A5"/>
+      <stop offset="1" stop-color="#62D7F2"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#000" flood-opacity=".22"/>
+    </filter>
+  </defs>
+  <rect width="1280" height="640" rx="32" fill="url(#bg)"/>
+  <circle cx="1140" cy="50" r="220" fill="#1D6B7B" opacity=".22"/>
+  <circle cx="80" cy="620" r="240" fill="#21A58B" opacity=".13"/>
+  <rect x="72" y="64" width="116" height="10" rx="5" fill="url(#accent)"/>
+  <text x="72" y="128" fill="#F5FAFF" font-family="Inter, Arial, sans-serif" font-size="52" font-weight="700">Olist E-commerce Analytics</text>
+  <text x="72" y="174" fill="#AFC9DD" font-family="Inter, Arial, sans-serif" font-size="24">SQL-витрина • продуктовые метрики • retention • качество доставки</text>
+  <g filter="url(#shadow)" font-family="Inter, Arial, sans-serif">
+    <g transform="translate(72 232)">
+      <rect width="350" height="132" rx="20" fill="#102F4C" stroke="#2E5877"/>
+      <text x="26" y="40" fill="#90AFC6" font-size="18">Доставленные заказы</text>
+      <text x="26" y="94" fill="#FFFFFF" font-size="42" font-weight="700">96 478</text>
+    </g>
+    <g transform="translate(465 232)">
+      <rect width="350" height="132" rx="20" fill="#102F4C" stroke="#2E5877"/>
+      <text x="26" y="40" fill="#90AFC6" font-size="18">GMV с доставкой</text>
+      <text x="26" y="94" fill="#FFFFFF" font-size="42" font-weight="700">15,42 млн</text>
+    </g>
+    <g transform="translate(858 232)">
+      <rect width="350" height="132" rx="20" fill="#102F4C" stroke="#2E5877"/>
+      <text x="26" y="40" fill="#90AFC6" font-size="18">Средний чек</text>
+      <text x="26" y="94" fill="#FFFFFF" font-size="42" font-weight="700">159,83</text>
+    </g>
+    <g transform="translate(72 404)">
+      <rect width="350" height="132" rx="20" fill="#102F4C" stroke="#2E5877"/>
+      <text x="26" y="40" fill="#90AFC6" font-size="18">Повторные клиенты</text>
+      <text x="26" y="94" fill="#6EE7C9" font-size="42" font-weight="700">3,00%</text>
+    </g>
+    <g transform="translate(465 404)">
+      <rect width="350" height="132" rx="20" fill="#102F4C" stroke="#2E5877"/>
+      <text x="26" y="40" fill="#90AFC6" font-size="18">Опоздавшие доставки</text>
+      <text x="26" y="94" fill="#FFD166" font-size="42" font-weight="700">8,11%</text>
+    </g>
+    <g transform="translate(858 404)">
+      <rect width="350" height="132" rx="20" fill="#102F4C" stroke="#2E5877"/>
+      <text x="26" y="40" fill="#90AFC6" font-size="18">Плохие отзывы при опоздании</text>
+      <text x="26" y="94" fill="#FF7B7B" font-size="42" font-weight="700">53,99%</text>
+    </g>
+  </g>
+  <text x="72" y="600" fill="#7FA0B9" font-family="Inter, Arial, sans-serif" font-size="17">PostgreSQL · Python · pandas · SciPy · DataLens</text>
+</svg>
