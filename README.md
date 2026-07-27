@@ -47,11 +47,17 @@
 
 ## Дашборд
 
-В проекте подготовлены шесть компактных CSV-витрин для DataLens: executive KPI, продажи, категории, retention, RFM, доставка и отзывы.
+В проекте есть три готовых визуальных экрана и шесть компактных CSV-витрин для DataLens: executive KPI, продажи, категории, retention, RFM, доставка и отзывы.
+
+### Retention
+
+![Когортный retention клиентов Olist](reports/figures/cohort_retention.png)
+
+### Доставка и отзывы
 
 ![Связь доставки и отзывов](reports/figures/delivery_reviews.png)
 
-[Открыть витрины и инструкцию DataLens](datalens/README.md)
+[Открыть витрины и инструкцию DataLens](datalens/README.md). Публичная ссылка на DataLens пока отсутствует, поэтому README показывает воспроизводимые статические экраны, построенные из тех же витрин.
 
 ## Данные
 
