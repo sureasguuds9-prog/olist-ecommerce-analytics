@@ -1,4 +1,4 @@
-# Dashboard в Yandex DataLens
+# Дашборд в Yandex DataLens
 
 Для проекта подготовлены отдельные CSV-витрины, которые можно загрузить в Yandex DataLens без объединения исходных таблиц Olist.
 
@@ -57,7 +57,7 @@ python src/prepare_datalens_data.py
 
 Источник: `monthly_sales.csv`, `category_performance.csv`.
 
-### Страница 3. Retention и клиенты
+### Страница 3. Удержание и клиенты
 
 Графики:
 

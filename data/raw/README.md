@@ -1,10 +1,10 @@
 # Исходные данные
 
-Скачайте **Brazilian E-Commerce Public Dataset by Olist** с Kaggle:
+Скачайте публичный набор **Brazilian E-Commerce Public Dataset by Olist** с Kaggle:
 
 https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
 
-Распакуйте CSV-файлы в эту папку. Для выполнения основного notebook необходимы:
+Распакуйте CSV-файлы в эту папку. Для выполнения основного ноутбука необходимы:
 
 - `olist_customers_dataset.csv`
 - `olist_order_items_dataset.csv`
@@ -14,4 +14,4 @@ https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
 - `olist_products_dataset.csv`
 - `product_category_name_translation.csv`
 
-Файлы с геолокацией и продавцами входят в исходный датасет, но не используются в основном notebook.
+Файлы с геолокацией и продавцами входят в исходный набор, но не используются в основном ноутбуке.
