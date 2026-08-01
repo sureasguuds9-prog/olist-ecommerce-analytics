@@ -2,7 +2,7 @@
 
 ![Обложка проекта Olist](assets/olist-cover.svg)
 
-> End-to-end e-commerce analysis: PostgreSQL order mart, sales, retention, RFM, delivery quality and customer reviews.
+> Сквозной анализ электронной коммерции: витрина заказов PostgreSQL, продажи, удержание, RFM, качество доставки и отзывы клиентов.
 
 ## Кратко
 
@@ -14,7 +14,7 @@
 
 **Источник:** публичный датасет Olist на Kaggle. **Период:** 2016–2018 годы; крайние месяцы представлены неполно.
 
-[SQL-анализ](sql/README.md) · [аналитический отчёт](reports/analytical_report.md) · [выполненный notebook](notebooks/olist_ecommerce_analysis.ipynb) · [витрины для DataLens](datalens/README.md)
+[SQL-анализ](sql/README.md) · [аналитический отчёт](reports/analytical_report.md) · [выполненный ноутбук](notebooks/olist_ecommerce_analysis.ipynb) · [витрины для DataLens](datalens/README.md)
 
 ## Бизнес-задача
 
@@ -49,7 +49,7 @@
 
 В проекте есть три готовых визуальных экрана и шесть компактных CSV-витрин для DataLens: executive KPI, продажи, категории, retention, RFM, доставка и отзывы.
 
-### Retention
+### Когортное удержание
 
 ![Когортный retention клиентов Olist](reports/figures/cohort_retention.png)
 
